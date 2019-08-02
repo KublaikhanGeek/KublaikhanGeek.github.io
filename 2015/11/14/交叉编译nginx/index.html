@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>交叉编译nginx | Kublaikhangeek&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="（转）nginx交叉编译问题处理@[nginx|交叉编译]
+本文转载自：http://blog.csdn.net/fish43237/article/details/40515897
+工作中在ubuntu上交叉编译目标平台是openwrt的nginx程序，期间遇到了很多问题，在这片文章中都找到了答案，顺利的实现了编译，先谢谢这篇文章的作者，我就不再进行二次创作了，转载到我的博客只是为了备忘。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="交叉编译nginx">
+<meta property="og:url" content="https://github.com/2015/11/14/交叉编译nginx/index.html">
+<meta property="og:site_name" content="Kublaikhangeek's Blog">
+<meta property="og:description" content="（转）nginx交叉编译问题处理@[nginx|交叉编译]
+本文转载自：http://blog.csdn.net/fish43237/article/details/40515897
+工作中在ubuntu上交叉编译目标平台是openwrt的nginx程序，期间遇到了很多问题，在这片文章中都找到了答案，顺利的实现了编译，先谢谢这篇文章的作者，我就不再进行二次创作了，转载到我的博客只是为了备忘。">
+<meta property="og:updated_time" content="2019-07-25T12:27:13.533Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="交叉编译nginx">
+<meta name="twitter:description" content="（转）nginx交叉编译问题处理@[nginx|交叉编译]
+本文转载自：http://blog.csdn.net/fish43237/article/details/40515897
+工作中在ubuntu上交叉编译目标平台是openwrt的nginx程序，期间遇到了很多问题，在这片文章中都找到了答案，顺利的实现了编译，先谢谢这篇文章的作者，我就不再进行二次创作了，转载到我的博客只是为了备忘。">
+  
+  
+    <link rel="icon" href="favicon.png">
+  
+  
+ <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
+ <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+
+
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" type="text/css">
+  
+
+  
+
+  
+</head>
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-main" class="header-inner">
+    <div class="outer">
+      <a href="/" id="logo"><i class="logo" style="background-image: url(/css/images/logo.png)"></i><span class="site-title">Kublaikhangeek&#39;s Blog</span></a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/.">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      
+        <nav id="sub-nav">
+          <div class="profile" id="profile-nav">
+            <a id="profile-anchor" href="javascript:;"><img class="avatar" src="/css/images/avatar.png"><i class="fa fa-caret-down"></i></a>
+          </div>
+        </nav>
+      
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"> </button><input type="hidden" name="sitesearch" value="https://github.com"></form>
+      </div>
+    </div>
+  </div>
+  <div id="main-nav-mobile" class="header-sub header-inner">
+    <table class="menu outer">
+      <tr>
+        
+          <td><a class="main-nav-link" href="/.">Home</a></td>
+        
+          <td><a class="main-nav-link" href="/archives">Archives</a></td>
+        
+          <td><a class="main-nav-link" href="/categories">Categories</a></td>
+        
+          <td><a class="main-nav-link" href="/tags">Tags</a></td>
+        
+          <td><a class="main-nav-link" href="/about">About</a></td>
+        
+        <td>
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="https://github.com"></form>
+        </td>
+      </tr>
+    </table>
+  </div>
+</header>
+
+    <div class="outer">
+      
+        <aside id="profile">
+  <div class="inner profile-inner">
+    <div class="base-info profile-block">
+      <img id="avatar" src="/css/images/avatar.png">
+      <h2 id="name">Kublaikhan</h2>
+      <h3 id="title">C++ Developer</h3>
+      <span id="location"><i class="fa fa-map-marker"></i>Beijing, China</span>
+      <a id="follow" href="https://github.com/KublaikhanGeek/">关注我</a>
+    </div>
+    <div class="article-info profile-block">
+      <div class="article-info-block">
+        22
+        <span>文章</span>
+      </div>
+      <div class="article-info-block">
+        30
+        <span>标签</span>
+      </div>
+    </div>
+    
+    <div class="contact-info profile-block">
+      <table class="contact-list">
+        <tr>
+          
+          <td><a href="https://github.com/KublaikhanGeek" target="_blank" title="github"><i class="fa fa-github"></i></a></td>
+          
+          <td><a href="http://weibo.com/u/1706057842" target="_blank" title="weibo"><i class="fa fa-weibo"></i></a></td>
+          
+          <td><a href="http://www.zhihu.com/people/yuan-shun-bao" target="_blank" title="知乎"><i class="fa fa-知乎"></i></a></td>
+          
+          <td><a href="http://www.douban.com/people/31600902/" target="_blank" title="豆瓣"><i class="fa fa-豆瓣"></i></a></td>
+          
+          <td><a href="https://twitter.com/KublaikhanAndy" target="_blank" title="twitter"><i class="fa fa-twitter"></i></a></td>
+          
+          <td><a href="https://www.facebook.com/yuanshunbao2008" target="_blank" title="facebook"><i class="fa fa-facebook"></i></a></td>
+          
+          <td><a href="/atom.xml" target="_blank" title="rss"><i class="fa fa-rss"></i></a></td>
+          
+        </tr>
+      </table>
+    </div>
+    
+    
+  </div>
+</aside>
+
+      
+      <section id="main"><article id="post-交叉编译nginx" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      交叉编译nginx
+    </h1>
+  
+
+        <div class="article-meta">
+          
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2015/11/14/交叉编译nginx/">
+      <time datetime="2015-11-15T01:08:26.000Z" itemprop="datePublished">2015-11-14</time>
+    </a>
+  </div>
+
+
+          
+  <div class="article-category">
+  	<i class="fa fa-folder"></i>
+    <a class="article-category-link" href="/categories/nginx/">nginx</a>
+  </div>
+
+        </div>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+                
+        <h2><span id="转nginx交叉编译问题处理">（转）nginx交叉编译问题处理</span></h2><p>@[nginx|交叉编译]</p>
+<p>本文转载自：<a href="http://blog.csdn.net/fish43237/article/details/40515897" target="_blank" rel="external">http://blog.csdn.net/fish43237/article/details/40515897</a></p>
+<p>工作中在ubuntu上交叉编译目标平台是openwrt的nginx程序，期间遇到了很多问题，在这片文章中都找到了答案，顺利的实现了编译，先谢谢这篇文章的作者，我就不再进行二次创作了，转载到我的博客只是为了备忘。</p>
+<a id="more"></a>
+<blockquote>
+<h3><span id="关键词">关键词</span></h3><ul>
+<li>（1）nginx 、 nginx-1.6.2</li>
+<li>（3）mips、openwrt</li>
+<li>（2）cross compile 、交叉编译</li>
+<li>（5）openssl 、 pcre 、zlib</li>
+<li>（8）sha1 library is not found</li>
+<li>（9）SSL modules require the OpenSSL library. </li>
+<li>（10）make 没有什么可以做的为 `default’。</li>
+<li>（11）没有规则可以创建 nginx.o 需要的目标 nginx.h</li>
+<li>（12）checking for C compiler … found but is not working</li>
+<li>（13）autotest not found</li>
+<li>（14）ELF ld-uClibc.so.0 not found</li>
+<li>（15）can not detect int size</li>
+<li>（16）autotest.c: No such file or directory</li>
+<li>（17）没有规则可以创建 nginx.o 需要的目标 nginx.h </li>
+<li>（18）If you meant to cross compile, use `–host’.See config.log for more details</li>
+<li>（19）ngx_errno.c:In function ‘ngx_strerror’ ngx_errno.c:In function ‘ngx_strerror_init’: </li>
+<li>（20）error: ‘NGX_SYS_NERR’ undeclared (first use in this function）</li>
+<li>（21）Relocations in generic ELF (EM: 3)</li>
+<li>（22）libssl.a:could not read symbols: File in wrong format</li>
+<li>（23）x86cpuid.s</li>
+</ul>
+</blockquote>
+<h3><span id="正文">正文：</span></h3><p>一般来说，编译 nginx 不会有太大的问题。但是因为 nginx 对交叉编译的支持不太好。所以如果想 nginx 移植到其它环境中，会出现比较多的问题。网上也能找到几篇关于 nginx 的交叉编译的文章，但是都是针对旧一点的版本。本文 编译的是 最新的 stalble 版本，nginx-1.6.2</p>
+<h3><span id="环境设置-声明变量-执行configure">环境设置、声明变量、执行configure</span></h3><h4><span id="1-openwrt-环境变量">1. openwrt 环境变量</span></h4><pre><code><span class="constant">STAGING_DIR=</span>/home/ubuntu/workplace/sdk/<span class="symbol">toolchain:</span><span class="variable">$STAGING_DIR</span>
+export <span class="constant">STAGING_DIR;</span>
+
+export <span class="constant">PATH=</span><span class="variable">$PATH</span><span class="symbol">:/home/ubuntu/workplace/sdk/toolchain/bin</span>
+</code></pre><h4><span id="2-nginx-编译用到的变量">2. nginx 编译用到的变量</span></h4><pre><code><span class="constant">BUILD_PATH</span>=<span class="variable">$PWD</span>
+<span class="constant">INSTALL_PATH</span>=<span class="variable">$PWD</span>/install
+<span class="constant">CC_PATH</span>=<span class="regexp">/home/ubuntu</span><span class="regexp">/workplace/sdk</span><span class="regexp">/toolchain/bin</span><span class="regexp">/mips-openwrt-linux-uclibc-gcc
+CPP_PATH=/home</span><span class="regexp">/ubuntu/workplace</span><span class="regexp">/sdk/toolchain</span><span class="regexp">/bin/mips</span>-openwrt-linux-uclibc-g++
+<span class="constant">CONFIG_DIR</span>=<span class="regexp">/app/nginx</span>
+<span class="constant">LOG_DIR</span>=<span class="regexp">/app/nginx</span><span class="regexp">/log
+TEMP_DIR=/app</span><span class="regexp">/nginx/tmp</span> 
+</code></pre><h4><span id="3-执行configure生成makefile">3. 执行configure，生成Makefile</span></h4><pre><code>./configure \
+--prefix=<span class="variable">$INSTALL</span>_PATH\
+--builddir=<span class="variable">$BUILD</span>_PATH/build \
+--conf-path=<span class="variable">$CONFIG</span>_DIR/nginx.conf \
+--error-log-path=<span class="variable">$LOG</span>_DIR/error.log \
+--pid-path=<span class="variable">$CONFIG</span>_DIR/nginx.pid \
+--lock-path=<span class="variable">$CONFIG</span>_DIR/nginx.lock \
+--http-log-path=<span class="variable">$LOG</span>_DIR/access.log \
+--http-client-body-temp-path=<span class="variable">$TEMP</span>_DIR/body \
+--http-proxy-temp-path=<span class="variable">$TEMP</span>_DIR/proxy \
+--http-fastcgi-temp-path=<span class="variable">$TEMP</span>_DIR/fastcgi \
+--without-http_uwsgi_module \
+--without-http_scgi_module \
+--without-http_gzip_module \
+--with-http_ssl_module \
+--with-pcre=/home/ubuntu/packets/pcre-<span class="number">6.7</span> \
+--with-openssl=/home/ubuntu/packets/openssl-<span class="number">1.0</span>.<span class="number">1</span>i \
+--with-cc=<span class="variable">$CC</span>_PATH  \
+--with-cpp=<span class="variable">$CPP</span>_PATH \
+--with-cc-opt=<span class="string">"-I /home/ubuntu/workplace/sdk/toolchain/include"</span> \
+--with-ld-opt=<span class="string">"-L /home/ubuntu/workplace/sdk/toolchain/lib"</span>
+</code></pre><h4><span id="4-执行make-和make-install">4. 执行make 和make install</span></h4><h3><span id="遇到的问题">遇到的问题</span></h3><blockquote>
+<p>（1）问题内容：<br>checking for C compiler … found but is not working<br>./configure error : C compiler gcc is not found</p>
+<p>（2）原因分析：<br>configure首先会编译一个小测试程序，通过测试其运行结果来判断编译器是否能正常工作，由于交叉编译器所编译出的程序是无法在编译主机上运行的，故而产生此错误。</p>
+<p>（3）解决办法：<br>编辑auto/cc/name文件，将21行的“exit 1”注释掉（令测试程序不会报错）。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>（1）问题内容：<br>autotest : 4 : not found<br>autotest:Syntax error: Unterminated quoted string bytes<br>./configure : error:can not detect int size<br>cat : /home/ubuntu/packets/nginx-1.6.2/build/autotest.c: No such file or directory  </p>
+<p>（2）原因分析：<br>configure通过运行测试程序来获得“int、long、longlong”等数据类型的大小，由于交叉编译器所编译出的程序无法在编译主机上运行而产生错误。</p>
+<p>（3）解决办法：<br>可以通过修改configure文件来手动指定各数据类型的大小，但会非常麻烦。这里，由于编译主机与目标平台均为32位系统，故可以用“gcc”替代“mips-openwrt-linux-gcc”来进行数据类型大小的测试（注意：不同的编译环境可能编译器有点不同）<br>编辑auto/types/sizeof文件，大概36行的位置（ \$CC 改为 gcc ）<br>ngx_test=”\$CC \$CC_TEST_FLAGS \$CC_AUX_FLAGS<br>该为ngx_test=”gcc \$CC_TEST_FLAGS \$CC_AUX_FLAGS </p>
+</blockquote>
+<hr>
+<blockquote>
+<p>（1）问题内容：<br>./configure:error:can not detect int size<br>cat:/home/ubuntu/packets/nginx-1.6.2/build/autotest.c: No such file ordirectory</p>
+<p>（2）原因分析：检测不到size</p>
+<p>（3）解决办法：两个问题，一个是检测不到size。一个是找不到测试程序源代码。<br>先解决 size 问题，修改 auto/types/sizeof 文件，找到 ngx_size= 这一行，改为 ngx_size=4<br>修改完之后，再次configure，发现 autotest.c 的问题也消失了。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>（1）问题内容：sha1 library is not found</p>
+<p>（2）原因分析：弄不清楚</p>
+<p>（3）解决办法：configure的时候增加参数 –with-http_ssl_module</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>（1）问题内容：./configure : error :SSL modules require the OpenSSL library.</p>
+<p>（2）原因分析：没有说清楚openssl的源代码路径</p>
+<p>（3）解决办法：指明openssl代码的路径。–with-openssl=DIR（DIR表示openssl源代码解压的路径）</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>（1）问题内容： make:没有什么可以做的为`default’。</p>
+<p>（2）原因分析：没有说清楚openssl的源代码路径</p>
+<p>（3）解决办法：<br>进入build目录（具体是哪个目录，需要察看Makefile，执行make）<br>譬如说我的 configure 生成的 Makefile 里面有一段  </p>
+<pre><code><span class="string">build:</span>  
+$(MAKE) -f <span class="regexp">/home/</span>ubuntu<span class="regexp">/packets/</span>nginx-<span class="number">1.6</span><span class="number">.2</span><span class="regexp">/build/</span>Makefile  
+$(MAKE) -f <span class="regexp">/home/</span>ubuntu<span class="regexp">/packets/</span>nginx-<span class="number">1.6</span><span class="number">.2</span><span class="regexp">/build/</span>Makefile manpage  
+</code></pre><p>所以应该进入/home/ubuntu/packets/nginx-1.6.2/build目录，执行make</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>（1）问题内容：没有规则可以创建 “/home/ubuntu/packets/nginx-1.4.7/build/src/core/nginx.o” 需要的目标 “src/core/nginx.h” 。</p>
+<p>（2）原因分析：不知道是不是软件的 bug，指定build路径后，build路径里面的源代码是空的</p>
+<p>（3）解决办法：把主目录的src文件夹里面的东西，拷贝到build目录（build目录请根据自己实际情况进行确定，参考上面那个问题）</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>（1）问题内容：<br>checking whether the C compiler works… configure: error: cannot run Ccompiled programs.<br>If you meant to cross compile, use `–host’.<br>See `config.log’ for more details.<br>make:*** [/home/ubuntu/packets/pcre-6.7/Makefile]错误1  </p>
+<p>（2）原因分析：出错的是pcre而不是openssl。原因是编译 pcre 没有指定 `–host’ 参数</p>
+<p>（3）解决办法：<br>打开build目录的Makefile，找到 pcre 参数设定的那几行。  </p>
+<pre><code><span class="regexp">/home/</span>ubuntu<span class="regexp">/packets/</span>pcre-<span class="number">6.7</span><span class="regexp">/Makefile :  /</span>home<span class="regexp">/ubuntu/</span>packets<span class="regexp">/nginx-1.6.2/</span>build/Makefile  
+cd <span class="regexp">/home/</span>ubuntu<span class="regexp">/packets/</span>pcre-<span class="number">6.7</span> \  
+&amp;&amp; <span class="keyword">if</span> [ -f Makefile ] ; then $(MAKE) distclean; fi \
+&amp;&amp; CC=<span class="string">"$(CC)"</span> CFLAGS=<span class="string">"-O2 -fomit-frame-pointer -pipe "</span>\
+./configure --disable-shared
+</code></pre><p>在configure那里再添加一个参数 –host=mips-openwrt-linux（具体添加需要根据实际情况，参考我的编译器是mips-openwrt-linux-gcc，所以host是mips-openwrt-linux）</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>（1）问题内容：<br>src/os/unix/ngx_errno.c : In function’ngx_strerror’:<br>src/os/unix/ngx_errno.c : 37 : 31 :error:’NGX_SYS_NERR’ undeclared (first use in this function)<br>src/os/unix/ngx_errno.c : 37 : 31 :note: each undeclared identifier is reported only once for eachfunction it appears in<br>src/os/unix/ngx_errno.c : In function’ngx_strerror_init’:<br>src/os/unix/ngx_errno.c : 58 :11 : error : ‘NGX_SYS_NERR’ undeclared (first use in this function)<br>make:*** [/home/ubuntu/packets/nginx-1.6.2/build/src/os/unix/ngx_error.o] 错误1  </p>
+<p>（2）原因分析：<br>NGX_SYS_NERR未定义，NGX_SYS_NERR正常情况下应定义在objs/ngx_auto_config.h文件中，特别注意，这是一个auto性质的文件，只有在执行了./configure后，才能生成这个文件。宏NGX_SYS_NERR的意义为，在Linux系统中有132个错误编码。</p>
+<p>（3）解决办法：<br>找到ngx_auto_config.h这个文件（我的ngx_auto_config.h在build目录，不同的configure参数，这个文件的位置可能不一样）<br>在文件中添加如下三行：  </p>
+<pre><code><span class="id">#ifndef</span> NGX_SYS_NERR
+<span class="hexcolor">#def</span>ine NGX_SYS_NERR  <span class="number">132</span>
+#endif
+</code></pre><p>然后，继续执行make。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>（1）问题内容：<br>./dftables pcre_chartables.c<br>/bin/bash:./dftables:无法执行二进制文件</p>
+<p>（2）原因分析：dftables需要在编译的时候运行，而交叉编译的程序是不能运行的，要用系统的gcc来编译才能运行</p>
+<p>（3）解决办法：用x86的gcc来单独编译dftables（我的是ubuntu自带的gcc）。<br>进入pcre代码所在的目录，并且执行<br>    gcc -Wall -O2 -DCROSS_COMPILE dftables.c -o dftables<br>执行完之后，返回刚才的目录，执行 make 继续编译</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>（1）问题内容：<br>openssl-1.0.1i/.openssl/lib/libssl.a(s23_meth.o):Relocations in generic ELF(EM: 3)<br>libssl.a:could not read symbols: File in wrong format</p>
+<p>（2）原因分析：原因是编译在nginx执行configure的时候，交叉编译参数没有很好的传到openssl。</p>
+<p>（3）解决办法：<br>打开主目录的Makefile，搜索到包含openssl-1.0.1i/.openssl/include/openssl/ssl.h的那一行（可能不同的版本会有一点点区别，搜索openssl，找到最接近那行）<br>然后，在config的参数那里增加一个，指明交叉编译器所在的路径（请根据实际情况设定）<br> –cross-compile-prefix=/home/ubuntu/…………/mips-openwrt-linux-<br>(需要注意的是，最后那里的横杠不能少，如果编译器是mips-openwrt-linux-gcc那就是mips-openwrt-linux-，如果是arm-linux-gcc就是arm-linux-)<br>修改完makefile之后，会导致make把所有东西都构建一遍，所以之前已经解决了的那几个问题可能会重新出现，需要再解决一回。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>（1）问题内容：<br>x86cpuid.s:Assembler messages:<br>x86cpuid.s:168:Error: Unrecognized opcode `hlt’</p>
+<p>（2）原因分析：原因是编译在nginx执行configure的时候，交叉编译参数没有很好的传到openssl。</p>
+<p>（3）解决办法：找到上面那个问题添加–cross-compile-prefix的那一行，继续添加一个参数no-asm，禁用汇编代码。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>（1）问题内容：<br>./home/ubuntu/packets/nginx-1.6.2/build/src/core/ngx_cycle.o:In function `ngx_init_cycle’:<br>/home/ubuntu/packets/nginx-1.6.2/build/src/core/ngx_cycle.c:457:undefined reference to `ngx_shm_free’<br>/home/ubuntu/packets/nginx-1.6.2/build/src/core/ngx_cycle.c:462:undefined reference to `ngx_shm_alloc’<br>/home/ubuntu/packets/nginx-1.6.2/build/src/core/ngx_cycle.c:648:undefined reference to `ngx_shm_free’<br>/home/ubuntu/packets/nginx-1.6.2/build/src/event/ngx_event.o:In function `ngx_event_module_init’:<br>/home/ubuntu/packets/nginx-1.6.2/build/src/event/ngx_event.c:525:undefined reference to `ngx_shm_alloc’<br>collect2:ld returned 1 exit status<br>make:*** [/home/ubuntu/packets/nginx-1.6.2/build/nginx]错误1</p>
+<p>（2）原因分析：`ngx_shm_free’函数未定义<br>通过查看源码可以发现，`ngx_shm_free’定义在src/os/unix/ngx_shmem.c文件中，这个函数要正常使用的话必须要求<br>“NGX_HAVE_MAP_ANON、NGX_HAVE_MAP_DEVZERO、NGX_HAVE_SYSVSHM”这三个宏中有一个被定义。</p>
+<p>（3）解决办法：<br>修改ngx_auto_config.h ,加入这几行：</p>
+<pre><code><span class="id">#ifndef</span> NGX_HAVE_SYSVSHM
+<span class="hexcolor">#def</span>ine NGX_HAVE_SYSVSHM <span class="number">1</span>
+#endif
+</code></pre></blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/2015/11/14/交叉编译nginx/" data-id="cjytjo6of00176ijxinplg6v5" class="article-share-link">分享到</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/交叉编译/">交叉编译</a></li></ul>
+
+      <span id="busuanzi_container_page_pv">
+      |阅读量:<span id="busuanzi_value_page_pv"></span>次
+      </span>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/11/18/Running-NGINX-in-the-Foreground/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          Running NGINX in the Foreground
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/11/13/用hexo+github pages搭建Blog/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">用hexo+github pages搭建Blog</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+</section>
+      
+        <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul id="recent-post" class="">
+        
+          <li>
+            
+            <div class="item-thumbnail">
+              <a href="/2019/08/01/C-knowledge/" class="thumbnail">
+  
+    <span class="thumbnail-image thumbnail-none"></span>
+  
+</a>
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/programming-language/">programming language</a></p>
+              <p class="item-title"><a href="/2019/08/01/C-knowledge/" class="title">C++ knowledge</a></p>
+              <p class="item-date"><time datetime="2019-08-02T03:08:37.000Z" itemprop="datePublished">2019-08-01</time></p>
+            </div>
+          </li>
+        
+          <li>
+            
+            <div class="item-thumbnail">
+              <a href="/2019/08/01/cjscon-library/" class="thumbnail">
+  
+    <span class="thumbnail-image thumbnail-none"></span>
+  
+</a>
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/library/">library</a></p>
+              <p class="item-title"><a href="/2019/08/01/cjscon-library/" class="title">cjscon library</a></p>
+              <p class="item-date"><time datetime="2019-08-02T02:44:44.000Z" itemprop="datePublished">2019-08-01</time></p>
+            </div>
+          </li>
+        
+          <li>
+            
+            <div class="item-thumbnail">
+              <a href="/2019/07/25/vim使用/" class="thumbnail">
+  
+    <span class="thumbnail-image thumbnail-none"></span>
+  
+</a>
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/linux/">linux</a></p>
+              <p class="item-title"><a href="/2019/07/25/vim使用/" class="title">vim使用</a></p>
+              <p class="item-date"><time datetime="2019-07-26T06:16:02.000Z" itemprop="datePublished">2019-07-25</time></p>
+            </div>
+          </li>
+        
+          <li>
+            
+            <div class="item-thumbnail">
+              <a href="/2019/07/25/hello-world/" class="thumbnail">
+  
+    <span class="thumbnail-image thumbnail-none"></span>
+  
+</a>
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category"></p>
+              <p class="item-title"><a href="/2019/07/25/hello-world/" class="title">Hello World</a></p>
+              <p class="item-date"><time datetime="2019-07-25T12:27:13.533Z" itemprop="datePublished">2019-07-25</time></p>
+            </div>
+          </li>
+        
+          <li>
+            
+            <div class="item-thumbnail">
+              <a href="/2019/04/19/Apollo-CANBUS模块解析/" class="thumbnail">
+  
+    <span style="background-image:url(/2019/04/19/Apollo-CANBUS模块解析/1555597041738.png
+)" alt="Apollo CANBUS模块解析" class="thumbnail-image"></span>
+  
+</a>
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/AI/">AI</a></p>
+              <p class="item-title"><a href="/2019/04/19/Apollo-CANBUS模块解析/" class="title">Apollo CANBUS模块解析</a></p>
+              <p class="item-date"><time datetime="2019-04-19T23:12:47.000Z" itemprop="datePublished">2019-04-19</time></p>
+            </div>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AI/">AI</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android开发/">Android开发</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/OpenWRT/">OpenWRT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/TCP-IP/">TCP/IP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javaEE/">javaEE</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javaee/">javaee</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/library/">library</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nginx/">nginx</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/programming-language/">programming language</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/server开发/">server开发</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/运维/">运维</a><span class="category-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ADAS/">ADAS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/">AI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Studio/">Android Studio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android开发/">Android开发</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apollo/">Apollo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CAN/">CAN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenWRT/">OpenWRT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP-IP/">TCP/IP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bonding/">bonding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/curl/">curl</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javaEE/">javaEE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/library/">library</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/openssl/">openssl</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server开发/">server开发</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/交叉编译/">交叉编译</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/人工智能/">人工智能</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代理/">代理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作要求/">工作要求</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/服务端/">服务端</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/框架/">框架</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自动驾驶/">自动驾驶</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/运维/">运维</a><span class="tag-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ADAS/" style="font-size: 10px;">ADAS</a> <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/Android-Studio/" style="font-size: 10px;">Android Studio</a> <a href="/tags/Android开发/" style="font-size: 13.33px;">Android开发</a> <a href="/tags/Apollo/" style="font-size: 10px;">Apollo</a> <a href="/tags/CAN/" style="font-size: 10px;">CAN</a> <a href="/tags/OpenWRT/" style="font-size: 10px;">OpenWRT</a> <a href="/tags/TCP-IP/" style="font-size: 10px;">TCP/IP</a> <a href="/tags/bonding/" style="font-size: 10px;">bonding</a> <a href="/tags/c/" style="font-size: 10px;">c++</a> <a href="/tags/curl/" style="font-size: 10px;">curl</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/javaEE/" style="font-size: 10px;">javaEE</a> <a href="/tags/library/" style="font-size: 10px;">library</a> <a href="/tags/nginx/" style="font-size: 13.33px;">nginx</a> <a href="/tags/openssl/" style="font-size: 10px;">openssl</a> <a href="/tags/server开发/" style="font-size: 16.67px;">server开发</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/交叉编译/" style="font-size: 10px;">交叉编译</a> <a href="/tags/人工智能/" style="font-size: 10px;">人工智能</a> <a href="/tags/代理/" style="font-size: 10px;">代理</a> <a href="/tags/工作要求/" style="font-size: 10px;">工作要求</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/服务端/" style="font-size: 10px;">服务端</a> <a href="/tags/框架/" style="font-size: 10px;">框架</a> <a href="/tags/网站/" style="font-size: 10px;">网站</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/自动驾驶/" style="font-size: 13.33px;">自动驾驶</a> <a href="/tags/运维/" style="font-size: 20px;">运维</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+  
+  <div id="toTop" class="fa fa-chevron-up"></div>
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2000 - 2019 Kublaikhan<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+    </div>
+  </div>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <div class="count-span">
+    <span id="busuanzi_container_site_pv">
+      本站总访问量<span id="busuanzi_value_site_pv"></span>|
+    </span>
+    <span id="busuanzi_container_site_uv">
+      本站访客数<span id="busuanzi_value_site_uv"><span>
+    </span>
+  </div>
+</footer>
+
+    
+
+
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

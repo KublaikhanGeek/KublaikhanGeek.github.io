@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android 总结：Manifest文件 | Kublaikhangeek&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Android 总结： Manifest文件
+原文链接：http://blog.csdn.net/u014136472/article/details/49851387
+一、application 属性&amp;lt; application /&amp;gt; ：应用的声明。这个元素包含了子元素，这些子元素声明了应用的组件，元素的属性将会影响应用下的所有组件。很多属性为组件设置了默认值，有些属性设置了全局值并且">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 总结：Manifest文件">
+<meta property="og:url" content="https://github.com/2016/10/26/Android-总结：Manifest文件/index.html">
+<meta property="og:site_name" content="Kublaikhangeek's Blog">
+<meta property="og:description" content="Android 总结： Manifest文件
+原文链接：http://blog.csdn.net/u014136472/article/details/49851387
+一、application 属性&amp;lt; application /&amp;gt; ：应用的声明。这个元素包含了子元素，这些子元素声明了应用的组件，元素的属性将会影响应用下的所有组件。很多属性为组件设置了默认值，有些属性设置了全局值并且">
+<meta property="og:updated_time" content="2019-07-25T12:27:13.513Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android 总结：Manifest文件">
+<meta name="twitter:description" content="Android 总结： Manifest文件
+原文链接：http://blog.csdn.net/u014136472/article/details/49851387
+一、application 属性&amp;lt; application /&amp;gt; ：应用的声明。这个元素包含了子元素，这些子元素声明了应用的组件，元素的属性将会影响应用下的所有组件。很多属性为组件设置了默认值，有些属性设置了全局值并且">
+  
+  
+    <link rel="icon" href="favicon.png">
+  
+  
+ <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
+ <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+
+
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" type="text/css">
+  
+
+  
+
+  
+</head>
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-main" class="header-inner">
+    <div class="outer">
+      <a href="/" id="logo"><i class="logo" style="background-image: url(/css/images/logo.png)"></i><span class="site-title">Kublaikhangeek&#39;s Blog</span></a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/.">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      
+        <nav id="sub-nav">
+          <div class="profile" id="profile-nav">
+            <a id="profile-anchor" href="javascript:;"><img class="avatar" src="/css/images/avatar.png"><i class="fa fa-caret-down"></i></a>
+          </div>
+        </nav>
+      
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"> </button><input type="hidden" name="sitesearch" value="https://github.com"></form>
+      </div>
+    </div>
+  </div>
+  <div id="main-nav-mobile" class="header-sub header-inner">
+    <table class="menu outer">
+      <tr>
+        
+          <td><a class="main-nav-link" href="/.">Home</a></td>
+        
+          <td><a class="main-nav-link" href="/archives">Archives</a></td>
+        
+          <td><a class="main-nav-link" href="/categories">Categories</a></td>
+        
+          <td><a class="main-nav-link" href="/tags">Tags</a></td>
+        
+          <td><a class="main-nav-link" href="/about">About</a></td>
+        
+        <td>
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="https://github.com"></form>
+        </td>
+      </tr>
+    </table>
+  </div>
+</header>
+
+    <div class="outer">
+      
+        <aside id="profile">
+  <div class="inner profile-inner">
+    <div class="base-info profile-block">
+      <img id="avatar" src="/css/images/avatar.png">
+      <h2 id="name">Kublaikhan</h2>
+      <h3 id="title">C++ Developer</h3>
+      <span id="location"><i class="fa fa-map-marker"></i>Beijing, China</span>
+      <a id="follow" href="https://github.com/KublaikhanGeek/">关注我</a>
+    </div>
+    <div class="article-info profile-block">
+      <div class="article-info-block">
+        22
+        <span>文章</span>
+      </div>
+      <div class="article-info-block">
+        30
+        <span>标签</span>
+      </div>
+    </div>
+    
+    <div class="contact-info profile-block">
+      <table class="contact-list">
+        <tr>
+          
+          <td><a href="https://github.com/KublaikhanGeek" target="_blank" title="github"><i class="fa fa-github"></i></a></td>
+          
+          <td><a href="http://weibo.com/u/1706057842" target="_blank" title="weibo"><i class="fa fa-weibo"></i></a></td>
+          
+          <td><a href="http://www.zhihu.com/people/yuan-shun-bao" target="_blank" title="知乎"><i class="fa fa-知乎"></i></a></td>
+          
+          <td><a href="http://www.douban.com/people/31600902/" target="_blank" title="豆瓣"><i class="fa fa-豆瓣"></i></a></td>
+          
+          <td><a href="https://twitter.com/KublaikhanAndy" target="_blank" title="twitter"><i class="fa fa-twitter"></i></a></td>
+          
+          <td><a href="https://www.facebook.com/yuanshunbao2008" target="_blank" title="facebook"><i class="fa fa-facebook"></i></a></td>
+          
+          <td><a href="/atom.xml" target="_blank" title="rss"><i class="fa fa-rss"></i></a></td>
+          
+        </tr>
+      </table>
+    </div>
+    
+    
+  </div>
+</aside>
+
+      
+      <section id="main"><article id="post-Android-总结：Manifest文件" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android 总结：Manifest文件
+    </h1>
+  
+
+        <div class="article-meta">
+          
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2016/10/26/Android-总结：Manifest文件/">
+      <time datetime="2016-10-27T04:35:13.000Z" itemprop="datePublished">2016-10-26</time>
+    </a>
+  </div>
+
+
+          
+  <div class="article-category">
+  	<i class="fa fa-folder"></i>
+    <a class="article-category-link" href="/categories/Android开发/">Android开发</a>
+  </div>
+
+        </div>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+                
+        <h3><span id="android-总结-manifest文件">Android 总结： Manifest文件</span></h3><hr>
+<p>原文链接：<a href="http://blog.csdn.net/u014136472/article/details/49851387" target="_blank" rel="external">http://blog.csdn.net/u014136472/article/details/49851387</a></p>
+<h4><span id="一-application-属性">一、application 属性</span></h4><p>&lt; application /&gt; ：应用的声明。<br>这个元素包含了子元素，这些子元素<strong>声明了应用的组件</strong>，元素的属性将会影响应用下的所有组件。很多属性为组件设置了默认值，<strong>有些属性设置了全局值并且不能被组件修改</strong>。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">application</span>/&gt;</span>节点必须包括在<span class="tag">&lt;<span class="title">manifest</span>/&gt;</span>节点中。</span><br><span class="line"></span><br><span class="line">而<span class="tag">&lt;<span class="title">application</span>/&gt;</span>节点本身还包括</span><br><span class="line"><span class="tag">&lt;<span class="title">activity</span>/&gt;</span>,<span class="tag">&lt;<span class="title">activity-alias</span>/&gt;</span>,<span class="tag">&lt;<span class="title">service</span>/&gt;</span>,<span class="tag">&lt;<span class="title">receiver</span>/&gt;</span>,<span class="tag">&lt;<span class="title">provider</span>/&gt;</span>和<span class="tag">&lt;<span class="title">uses-library</span>/&gt;</span>这几个节点。</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">application</span> </span><br><span class="line">    <span class="attribute">android:allowClearUserData</span> = ["<span class="attribute">true</span>" | "<span class="attribute">false</span>"]  </span><br><span class="line">    <span class="attribute">android:allowTaskReparenting</span> = ["<span class="attribute">true</span>" | "<span class="attribute">false</span>"]  </span><br><span class="line">    <span class="attribute">android:backupAgent</span> = "<span class="attribute">string</span>"  </span><br><span class="line">    <span class="attribute">android:debuggable</span> = ["<span class="attribute">true</span>" | "<span class="attribute">false</span>"]  </span><br><span class="line">    <span class="attribute">android:description</span> = "<span class="attribute">string</span> <span class="attribute">resource</span>"  </span><br><span class="line">    <span class="attribute">android:enabled</span> = ["<span class="attribute">true</span>" | "<span class="attribute">false</span>"]  </span><br><span class="line">    <span class="attribute">android:hasCode</span> = ["<span class="attribute">true</span>" | "<span class="attribute">false</span>"]  </span><br><span class="line">    <span class="attribute">android:icon</span> = "<span class="attribute">drawable</span> <span class="attribute">resource</span>"  </span><br><span class="line">    <span class="attribute">android:killAfterRestore</span> = ["<span class="attribute">true</span>" | "<span class="attribute">false</span>"]  </span><br><span class="line">    <span class="attribute">android:label</span> = "<span class="attribute">string</span> <span class="attribute">resource</span>"  </span><br><span class="line">    <span class="attribute">android:manageSpaceActivity</span> = "<span class="attribute">string</span>"  </span><br><span class="line">    <span class="attribute">android:name</span> = "<span class="attribute">string</span>"  </span><br><span class="line">    <span class="attribute">android:permission</span> = "<span class="attribute">string</span>"  </span><br><span class="line">    <span class="attribute">android:persistent</span> = ["<span class="attribute">true</span>" | "<span class="attribute">false</span>"]  </span><br><span class="line">    <span class="attribute">android:process</span> = "<span class="attribute">string</span>"  </span><br><span class="line">    <span class="attribute">android:restoreAnyVersion</span> = ["<span class="attribute">true</span>" | "<span class="attribute">false</span>"]  </span><br><span class="line">    <span class="attribute">android:taskAffinity</span> = "<span class="attribute">string</span>"  </span><br><span class="line">    <span class="attribute">android:theme</span> = "<span class="attribute">resource</span> <span class="attribute">or</span> <span class="attribute">theme</span>" &gt;</span>  </span><br><span class="line">    . . .  </span><br><span class="line"><span class="tag">&lt;/<span class="title">application</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>Android:allowClearUserData<br>是否给以用户删除用户数据的权限.<br>如果为true应用管理者就拥有清除数据的权限；false没有。默认为true。</p>
+</li>
+<li><p>android:allowTaskReparenting<br>应用定义的activities是否可以被从启动的任务转移到和他有相同并且将被带到前台的任务。<br>true他们可以被转移，如果为false，他们必须和启动他们的任务保持在一起。<br>默认为false。</p>
+</li>
+<li><p>android:backupAgent<br>实现应用的备份代理的类名，BackupAgent的子类。<br>这个属性的名称因该是全限定类名(如，”com.example.project.MyBackupAgent”)。<br>但是，如果名称的首字母被设置为点号，也可以为类名(如，”.MyBackupAgent”)，<br>他将被追加到在&lt; manifest /&gt;元素中定义的包名后。<br>没有默认值。</p>
+</li>
+<li><p>android:debuggable<br>应用是否可以使用debug，甚至运行在用户模式下。<br>true可以，false不能。默认为false。</p>
+</li>
+<li><p>android:description<br>用户可读的，比应用标签更长、更多的应用描述。<br>此值必须是一个引用字符串。不像标签，他不能被设置为硬编码字符串。没有默认值。</p>
+</li>
+<li><p>android:enabled<br>Android系统是否可以实例化应用的组件。<br>如果为true可以，如果为false不可以。<br>如果为true，每个组件的enabled属性决定了此组件。<br>如果为false，他重写了组件指定值，所有的组件将不还用。<br>默认为true。</p>
+</li>
+<li><p>android:hasCode<br>应用是否包含代码。<br>true表示包含，false表示不包含。<br>当值为false时，在启动组件是系统不会试着加载应用的任何代码。<br>默认为true。</p>
+</li>
+<li><p>android:icon<br>整个应用的图标，还是每个组件的默认图标。<br>这个属性值<strong>必须</strong>被设置为drawable资源的引用。<br>没有默认值。</p>
+</li>
+<li><p>android:killAfterRestore<br>在整型系统重置操作中，当他的设置被重置后，应用是否应该被终止。<br>单个包的重置操作不会引起应用被关闭。<br>整个系统的恢复操作仅代表性的发生一次，当电话第一次被设置时。<br>第三方应用将不会经常使用此属性。<br>默认值为true，意思是，当整个系统被恢复时，应用运行完他的数据后，将会终止。</p>
+</li>
+<li><p>android:label<br>一个易读的应用标签，并且还是应用的每个组件的默认标签。<br>这个标签应该被设置为引用字符串资源，当然他也可以像其他字符串一样在用户接口中指定。<br>但是为了方便，在应用开发时，可以被设置未定义字符串。</p>
+</li>
+<li><p>android:manageSpaceActivity<br>一个Activity子类的全限定名称，这个Activity可以被系统启动让用户管理此应用占有的存储空间。<br>这个Activity也应该用&lt; activity /&gt;元素声明。</p>
+</li>
+<li><p>android:name<br>为这个应用实现的Application子类的全限定名称。<br><strong>当应用启动时，这个类将在应用的其他组件之前被实例化。</strong><br>这个子类是可选的；大多数应用不需要。<br>在缺省时，Android使用基本Application类的实例。</p>
+</li>
+<li><p>android:permission<br>客户为了和应用交互必须设置的许可的名称。<br>这个属性是一个便利的途径为应用的组件设置许可。<br>他可以被组件的permission属性重写。</p>
+</li>
+<li><p>android:persistent<br>应用是否在所有时间下都保持运行。<br>true是，false不是。<br>默认为false。<br>通常情况下应用不应该设置此标识。<br>持久模式仅仅被几个系统应用指定。</p>
+</li>
+<li><p>android:process<br>为应用下的组件定一个运行进程名称。<br>每个组件可以定义自己的进程名称通过设置自己的process属性。<br>在默认情况下，Android为应用创建一个进程，当应用的第一个组件需要运行时。<br>所有的组件在同一个进程下运行。这个进程的名称和在&lt; manifest /&gt;元素设置的backage属性名相同。<br>通过设置这个属性在可以在其他应用中共享，你可以协调应用的组件在同一个进程中运行，但是只有两应用也共享用户ID和签订相同的证书。<br>如果这个属性的名称一个冒号(“:”)开始，一个新的私有的进程将被创建。<br>如果一个进程的名称以小写字母开头，一个公共的进程将被创建。<br>一个公共的进程可以被其他应用共享，来减少资源的使用。</p>
+</li>
+<li><p>android:restoreAnyVersion<br>表明这个应用准备尝试恢复所有的备份数据集合，甚至如果备份数据是比当前安装的应用高的编号存储的。<br>设置为true将允许备份管理者去尝试恢复当版本不匹配，意思是数据冲突。<br>要小心使用。默认为false。</p>
+</li>
+<li><p>android:taskAffinity<br>提供给应用下所有组件的类同名称，除了设置了自己的taskAffinity属性的组件。<br>默认情况下所有的组件使用相同的affinity。<br>Affinity的名称和在&lt; manifest /&gt;元素中设置的包名相同。</p>
+</li>
+<li><p>android:theme<br>为应用下的组件定义一个引用自样式资源的主题。<br>个别的activities可以设置自己的主题，通过设置自己的theme属性。</p>
+</li>
+<li><p>android:allowBackup<br>它表示是否允许应用程序参与备份。<br>如果将该属性设置为false,则即使备份整个系统,也不会执行这个应用程序的备份操作。<br>而整个系统备份能导致所有应用程序数据通过ADB来保存。<br>该属性必须是一个布尔值，或为true，或为false。<br>默认值为true。</p>
+</li>
+<li><p>android:largeHeap<br>应用程序是否使用一个比较大的堆创建。<br>它是一个布尔值，在没有配置的情况下，它的默认值是false。</p>
+</li>
+</ol>
+<h4><span id="二-activity-标签属性">二、activity 标签属性</span></h4><ol>
+<li><p>android:allowTaskReparenting</p>
+<ul>
+<li>android:allowTaskReparenting是一个任务调整属性。</li>
+<li>它表明当这个任务重新被送到前台时，该应用程序所定义的Activity是否可以从被启动的任务中转移到有相同亲和力的任务中。</li>
+<li>为什么在这里还要在提一次呢？因为它与&lt; application /&gt;的 android:allowTaskReparenting 属性重叠，因此当为正在配置的Activity提供该属性的时候，它的默认值首先来自&lt; application /&gt;节点。如果&lt; application/&gt;节点上没有配置该属性的时候，则false就是它的默认值。</li>
+<li>通常，当一个Activity启动的时候，Activity管理服务就会为这个Activity生成一个任务并将此Activity与之相关联。在一个任务中可能存在多个Activity，它按照一定顺序排列在这个任务中，我们可以使用这个属性来强制它重新成为此任务的顶层Activity。在当前的任务不再显示时，也就是说，与此Activity相关联任务不在前台显示的时候，可以使用这个特性来强制Activity转移到与之有相同亲和力的任务（taskAffinity属性定义的任务）中。典型的用法是把一个应用程序的Activity移到另一个应用程序的主任务中。</li>
+<li>例如，如果我们收到的一条短信（MMS应用程序）中包含一个电话号码文本，此时可以单击电话号码来启动拨号的快捷界面。但是，这个拨号界面是联系人应用程序的一个Activity，在这个场景下，它可能成为MMS应用程序启动的任务中的一个Activity，并位于该任务的顶层。如果它重新定位到联系人的任务中，则我们重新启动短信任务的时候就看不到这个拨号界面了。</li>
+<li>Activity的亲和力是由taskAffinity属性定义的，Task的亲和力是通过读取当前任务根Activity的亲和力决定的。因此，根据定义，根Activity总是位于相同亲和力的任务里。由于在某些需求的要求下，一些Activity的启动模式（由launchModel属性定义）为singleTask和singleInstance，此类Activity只能位于任务的底部，因此，想要使用allowTaskReparenting属性来调整Activity所属任务，则启动默认只能限于”standard”和”singleTop”这两个模式。</li>
+</ul>
+</li>
+<li><p>android:alwaysRetainTaskState<br>该属性表明该Activity所在任务的状态是否由系统保存。<br>如果是，则其值为true，如果配置为false，则表示在一定情况下Android将以初始状态启动该任务。<br>默认值是false。</p>
+<ul>
+<li>注意，该属性仅对任务的根Activity起作用，其他的所有Activity都会被忽略。</li>
+<li>当用户重新选择显示该任务的时候，系统在通常情况下将会清理掉任务中除了根Activity外的其他Activity。这种情况通常是指用户在一定时间限制内未对该任务进行操作，例如30分钟内。反之如果该属性配置为true时，系统总会以任务的最后状态来显示该任务，而不管用户是如何返回的。</li>
+</ul>
+</li>
+<li><p>android:clearTaskOnLaunch<br>该属性表明，除了任务中的根Activity，其他所有Activity是否都将从任务中移出。<br>如果想要在启动时只保留根Activity，则设置这个属性的值为true，否则为false。<br>默认值是false。</p>
+<ul>
+<li>该属性仅对启动一个新任务的根Activity有意义。</li>
+<li>当配置为true时，每当用户再次启动任务时，则总是由任务的根Activity来处理请求。</li>
+<li>如果该属性和allowTaskReparenting都是true，则可重新成为父任务的任何Activity就要被移动到具有相同亲和力的任务上，接着保留的Activity就被销毁。</li>
+</ul>
+</li>
+<li><p>android:configChanges<br>在某些设备配置（比如屏幕方向，字体大小，网络类型等）发生变化的时候，Activity将会被重新启动以适配新的配置，这是系统行为。而Android同样为应用程序提供了一个阻止这种行为发生的手段，如果你不想因为某种配置变化而发生Activity重启，则可以通过配置这个属性并选择你想要阻止的配置。如果你配置完毕并选择了你关注的配置，则当这些配置发生改变的时候Activity不会重启，而是通过onConfigurationChanged()回调方法通知应用程序这些配置发生了变化。</p>
+<ul>
+<li>注意：如非必要，应该避免使用该属性<br>所有这些配置的改变都能影响到应用程序对资源文件的选择。所以，当onConfigurationChanged（）被调用时，通常需要重新获取所有的资源（包括视图布局和图片等），以便正确地处理这些改变。<br><strong>注意，如果我们没有实现onConfigurationChanged（）回调，那么该Activity就会被销毁并重新创建。</strong></li>
+</ul>
+</li>
+<li><p>android:enabled<br>该属性表示Activity是否能被实例化。<br>一般来说，每个Activity由Activity框架负责实例化，但你可以通过配置该属性来限制系统的这种行为。<br>为true表示由系统实例化，否则为false。<br>默认值是true。<br>对于每一个Activity的子类，在它首次运行之前总要进行实例化，这个步骤是必须的。<br>我们可以使用这个属性来控制Android框架实例化Activity的行为，~但这样做是有风险的，所以不建议你这样做~。</p>
+</li>
+<li><p>android:excludeFromRecents<br>Android框架为我们维护了一个名叫<strong>“最近运行”的应用程序列表</strong>，以方便进行应用程序切换。<br>该属性表示应用程序是否应该将Activity从最近运行的应用程序列表排除。<br>如果排除，则为true，否则为false。<br>默认值为false。<br>这个属性的前提是该Activity是某个任务的根Activity。</p>
+</li>
+<li><p>android:exported<br>该属性表示Activity是否可以由其他应用程序中的组件来启动。<br>如果可以，则为true，否则为false。<br>如果为false，则该Activity只能由同一应用程序的组件或者有同样用户ID的应用程序来启动。<br><strong>注意，如果你试图从你的应用程序中启动其他应用程序组件，在没有使用该属性的情况下，你必须以新任务（newTask）的方式启动。</strong></p>
+</li>
+<li><p>android:finishOnTaskLaunch<br>该属性是指不管何时，当用户再次启动Activity的任务时（在主页屏幕上选择该任务），<br>是否应销毁（或者终止）这个Activity的实例，<br>如果应销毁，则为true，否则为false.<br>默认值是false。</p>
+</li>
+<li><p>android:hardwareAccelerated<br>该属性是指是否应为该Activity启动硬件加速。<br>如果应启动，则为true，否则为false。<br>默认值是false。</p>
+<ul>
+<li>注意：不是所有的OpenGL 2D操作都会被加速。<br>如果启用硬件加速渲染器，则要测试你的应用程序以便确保它能使用渲染器而不会产生错误。</li>
+</ul>
+</li>
+<li><p>android:icon<br>它代表Activity和图标。<br>在Activity被显示的时候，就用该图标显示给用户。<br>例如，用于示例任务的Activity的图标，或者桌面上的图标。<br>该属性<strong> 必须 </strong> 设置为图片资源引用，如果没有设置，就使用&lt; application /&gt;节点上的icon属性。</p>
+</li>
+<li><p>android:label<br>该属性用于描述该Activity的一个标签，通常是随着Activity图标一起显示出来的。<br>如果没有设置该属性，则使用&lt; application /&gt;节点上的label属性设置的值。</p>
+</li>
+<li><p>android:launchMode<br>这个属性描述了该Activity应该如何被启动。<br>在Intent对象中，与Activity标志一起工作的模式有4种，<br>分别是：<code>standard</code> , <code>singleTop</code> , <code>singleTask</code> 和 <code>singleInstance</code>。<br>默认模式是standard。<br>模式有两类，</p>
+<ul>
+<li>一类是 standard 和 singleTop ，另一类是 singleTask 和 singleInstance 。</li>
+<li>有 standard 和 singleTop 启动模式的Activity可多次被实例化。</li>
+<li>standard 是默认。系统总是在目标任务中创建Activity的一个新实例并且将intent按顺序放入到实例中。</li>
+<li>singleTop 有条件的 。如果Activity的实例已经存在于目标任务的顶部，</li>
+<li>则系统通过调用onNewIntent()方法将intent发送到该实例上，而不是创建Activity的一个新实例。</li>
+<li>singleTask 系统在新任务的根上创建该Activity。</li>
+<li>如果已经存在实例，则系统通过调用onNewIntent()方法来将intent发送到该Activity上，它允许在这个Activity为根的任务中创建新的Activity。</li>
+<li>singleInstance 和 singleTask 一样，除了系统不启动任何其他Activity到持有实例的任务上，Activity总是单个的，而且是其任务的唯一成员。</li>
+<li>相反，singleTask和singleInstance这两种模式下的Activity只能启动一个任务它们一直待在Activity栈的根上。此外，设备一次只保存Activity的一个实例。</li>
+<li>standard和singleTop模式只在一个方面上是不同的。在satndard模式下，每次都会实例化一个Activity新实例来响应这个Intent，每个实例处理一个intent。与此相似的是，singleTop模式下的Activity的新实例也可被创建来处理新的intent。但是，如果目标任务在其栈的顶部已经有Activity的一个实例，则会使用这个已经存在的Activity的实例来处理这个intent（回调onNewintent()方法），而不会创建一个新实例。在其他情况下，如果singleTop模式下的Activity的一个已存在实例在目标任务中而非栈的顶部，或者如果它在栈的顶部而非目标任务中，就会创建一个新实例并将它压倒Activity栈顶上。</li>
+<li>singleTask和singleInstance模式也同样存在不同的启动特性。singleTask模式下的Activity允许其他Activity成为它的任务的一部分，它总是在自身任务的根上，但是其他Activity可以被启动到该任务中。另一方面，singleInstance模式下的Activity不允许其他Activity成为其任务的一部分，它是任务中唯一的Activity。如果它启动了另一个Activity，则该Activity就被分配到不同的任务上，好比FLAG_ACTIVITY_NEW_TASK在intent中一样。</li>
+</ul>
+</li>
+<li><p>android:multiprocess<br>该属性表示Activity的实例是否可以运行在启动它的组件所在的应用程序进程中。<br>如果可以，则为true，否则为false。<br>默认值是false。</p>
+</li>
+<li><p>android:name<br>该属性表示Activity的类名，它是Activity的子类。<br>其属性值应该是一个标准的Java类名（如com.example.liyuanjing.ManiActivity）。<br>我们也可以将其标识为类的缩写，比如名称的首字母是一个点（例如.ManiActivity），<br>那么它就被追加&lt; manifest /&gt;元素指定的包名，<br>从而变成com.example.liyuanjing.ManiActivity（假设包名为com.example.liyuanjing）。<br>这点完全由系统完成，我们不需要关心这个过程的细节，但这个属性是必须配置的，并且不提供默认值。</p>
+</li>
+<li><p>android:noHistory<br>这个属性用于设置在用户离开该Activity，并且它在屏幕上不再可见的时候，是否应该从Activity的堆栈中删除。<br>如果应该删除，则为true，否则为false，默认值是false。<br>true意味着Activity将不会留下历史痕迹，它将不会为任务而在Activity栈中保留数据，<br>所以用户将不能返回到Activity上。</p>
+</li>
+<li><p>android:permission<br>表示的是权限名称。<br>如果startActivity()或者startActivityForResult()的调用者还没有被授予指定的权限，则启动失败。<br>如果该属性没有设置，则&lt; application /&gt;元素的 permission 属性设置的权限就应该应用到Activity中。<br>如果这两个属性都没有设置，则Activity就不会被权限保护。</p>
+</li>
+<li><p>android:process<br>该属性表示该Activity运行的进程名称。<br>通常，应用程序的所有组件在为应用程序而创建的默认进程中运行。<br>&lt; application /&gt;元素的process属性可以为所有组件设置一个不同的进程，<br>但是每个组件可以覆盖这个属性的值，这样就实现了将应用程序部署在多个进程间。<br>如果分配该属性的名称是以冒号（：）开头，则在需要新进程并且Activity在该进程中运行的时候，<br>就会创建一个对于应用程序私有的新进程。</p>
+</li>
+<li><p>android:screenOrientation<br>该属性表示Activity显示的方向（比如纵向，横向），它是值可以是下表中的任意一个字符。<br>取值 说明</p>
+<ul>
+<li>unspecified 默认值，根据重力感应选择方向</li>
+<li>user 用户当前偏好的方向</li>
+<li>behind 和Activity相同的方向</li>
+<li>landscape 横向</li>
+<li>portrait 纵向</li>
+<li>reverseLandscape 与正常横向相反方向 的横向</li>
+<li>reversePortrait 与正常纵向相反方向的纵向</li>
+<li>sensorLandscape 只能是横向，但是可以根据重力感应来决定是正常的还是反转的横向</li>
+<li>sensorPortrait 中能是纵向，但是可以根据重力感应来决定是正常的或者反转的纵向</li>
+<li>sensor 方向由设备方向感应器来决定。显示的方向取决于用户是如何持有设备的；在用户翻转设备时，方向发生改变。有些设备在默认情况下不会翻转到所有4个可能的方向。要允许可翻转到所有4个方向，可以使用fullSensor。</li>
+<li>fullSensor 方向由设备方向感应为4个方向中的任意一个而确定</li>
+<li>nosensor 无感应模式</li>
+</ul>
+</li>
+<li><p>android:stateNotNeeded<br>该属性表明Activity是否能被终止以及是否能在还没有保存其状态的情况下成功重启。<br>如果Activity可以在不需要引用到之前状态的情况下就能被重启，则该属性为true；<br>如果需要引用到之前的状态才能被重启，则为false。默认值是false。</p>
+<ul>
+<li>通常，在暂时关闭Activity之前，我们要调用onSaveInstanceState()方法来保存当前的Activity的状态。该方法在Bundle对象中存储Activity的当前状态，该对象在重启Activity时将会以参数的方式传给onCreate()方法。</li>
+<li>如果该属性被设置为true，则onSaveInstanceState()就不会被调用，并且onCreate()会被传递null，这和Activity首次启动时所做的一样。</li>
+</ul>
+</li>
+<li><p>android:taskAffinity<br>该属性指明对该Activity有亲和力的任务。<br>有同样亲和力的Activity在概念上属于同一任务（默认情况下是应用程序所定义的任务）。<br>任务的亲和力是由其根Activity的亲和力所决定的。</p>
+</li>
+<li><p>android:theme<br>该属性是指为Activity定义一个整体主题风格资源的引用。<br>所谓的风格包括字体种类，整体样式等。使用该属性可以使得我们的Activity在整体上更为统一，美观。</p>
+<ul>
+<li>如果没有设置该属性，则Activity继承将应用程序作为一个整体而设置的主题，具体可见元素的theme属性。如果theme属性也没有设置，则使用默认系统主题。</li>
+</ul>
+</li>
+<li><p>android:windowSoftInputMode<br>该属性表示Activity的主窗口如何与包含屏幕软键盘的窗口交互。<br>设置该属性将影响两件事。</p>
+<ul>
+<li>软键盘的状态。当Activity获取输入焦点时，是否隐藏软键盘。</li>
+<li>对Activity主窗口的调整。<br>该窗口是否被调整得更小一些来为软键盘腾出空间，或者它的内容是否被移动以便在部分窗口被软键盘覆盖时，使得当前焦点可见。该属性或者是下表的一个值，或者是state…值和adjust…值的组合。如果是多个值的组合，则使用（|）将其隔开。</li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/2016/10/26/Android-总结：Manifest文件/" data-id="cjytjo6ry003n6ijx00vdqoyv" class="article-share-link">分享到</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android开发/">Android开发</a></li></ul>
+
+      <span id="busuanzi_container_page_pv">
+      |阅读量:<span id="busuanzi_value_page_pv"></span>次
+      </span>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/11/10/Ubuntu下MySQL简单操作/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          Ubuntu下MySQL简单操作
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/10/26/客户端发送syn服务端不回复syn-ack/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">客户端发送syn服务端不回复syn ack</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+</section>
+      
+        <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul id="recent-post" class="">
+        
+          <li>
+            
+            <div class="item-thumbnail">
+              <a href="/2019/08/01/C-knowledge/" class="thumbnail">
+  
+    <span class="thumbnail-image thumbnail-none"></span>
+  
+</a>
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/programming-language/">programming language</a></p>
+              <p class="item-title"><a href="/2019/08/01/C-knowledge/" class="title">C++ knowledge</a></p>
+              <p class="item-date"><time datetime="2019-08-02T03:08:37.000Z" itemprop="datePublished">2019-08-01</time></p>
+            </div>
+          </li>
+        
+          <li>
+            
+            <div class="item-thumbnail">
+              <a href="/2019/08/01/cjscon-library/" class="thumbnail">
+  
+    <span class="thumbnail-image thumbnail-none"></span>
+  
+</a>
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/library/">library</a></p>
+              <p class="item-title"><a href="/2019/08/01/cjscon-library/" class="title">cjscon library</a></p>
+              <p class="item-date"><time datetime="2019-08-02T02:44:44.000Z" itemprop="datePublished">2019-08-01</time></p>
+            </div>
+          </li>
+        
+          <li>
+            
+            <div class="item-thumbnail">
+              <a href="/2019/07/25/vim使用/" class="thumbnail">
+  
+    <span class="thumbnail-image thumbnail-none"></span>
+  
+</a>
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/linux/">linux</a></p>
+              <p class="item-title"><a href="/2019/07/25/vim使用/" class="title">vim使用</a></p>
+              <p class="item-date"><time datetime="2019-07-26T06:16:02.000Z" itemprop="datePublished">2019-07-25</time></p>
+            </div>
+          </li>
+        
+          <li>
+            
+            <div class="item-thumbnail">
+              <a href="/2019/07/25/hello-world/" class="thumbnail">
+  
+    <span class="thumbnail-image thumbnail-none"></span>
+  
+</a>
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category"></p>
+              <p class="item-title"><a href="/2019/07/25/hello-world/" class="title">Hello World</a></p>
+              <p class="item-date"><time datetime="2019-07-25T12:27:13.533Z" itemprop="datePublished">2019-07-25</time></p>
+            </div>
+          </li>
+        
+          <li>
+            
+            <div class="item-thumbnail">
+              <a href="/2019/04/19/Apollo-CANBUS模块解析/" class="thumbnail">
+  
+    <span style="background-image:url(/2019/04/19/Apollo-CANBUS模块解析/1555597041738.png
+)" alt="Apollo CANBUS模块解析" class="thumbnail-image"></span>
+  
+</a>
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/AI/">AI</a></p>
+              <p class="item-title"><a href="/2019/04/19/Apollo-CANBUS模块解析/" class="title">Apollo CANBUS模块解析</a></p>
+              <p class="item-date"><time datetime="2019-04-19T23:12:47.000Z" itemprop="datePublished">2019-04-19</time></p>
+            </div>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AI/">AI</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android开发/">Android开发</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/OpenWRT/">OpenWRT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/TCP-IP/">TCP/IP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javaEE/">javaEE</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javaee/">javaee</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/library/">library</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nginx/">nginx</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/programming-language/">programming language</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/server开发/">server开发</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/运维/">运维</a><span class="category-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ADAS/">ADAS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/">AI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Studio/">Android Studio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android开发/">Android开发</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apollo/">Apollo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CAN/">CAN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenWRT/">OpenWRT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP-IP/">TCP/IP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bonding/">bonding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/curl/">curl</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javaEE/">javaEE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/library/">library</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/openssl/">openssl</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server开发/">server开发</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/交叉编译/">交叉编译</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/人工智能/">人工智能</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代理/">代理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作要求/">工作要求</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/服务端/">服务端</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/框架/">框架</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自动驾驶/">自动驾驶</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/运维/">运维</a><span class="tag-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ADAS/" style="font-size: 10px;">ADAS</a> <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/Android-Studio/" style="font-size: 10px;">Android Studio</a> <a href="/tags/Android开发/" style="font-size: 13.33px;">Android开发</a> <a href="/tags/Apollo/" style="font-size: 10px;">Apollo</a> <a href="/tags/CAN/" style="font-size: 10px;">CAN</a> <a href="/tags/OpenWRT/" style="font-size: 10px;">OpenWRT</a> <a href="/tags/TCP-IP/" style="font-size: 10px;">TCP/IP</a> <a href="/tags/bonding/" style="font-size: 10px;">bonding</a> <a href="/tags/c/" style="font-size: 10px;">c++</a> <a href="/tags/curl/" style="font-size: 10px;">curl</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/javaEE/" style="font-size: 10px;">javaEE</a> <a href="/tags/library/" style="font-size: 10px;">library</a> <a href="/tags/nginx/" style="font-size: 13.33px;">nginx</a> <a href="/tags/openssl/" style="font-size: 10px;">openssl</a> <a href="/tags/server开发/" style="font-size: 16.67px;">server开发</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/交叉编译/" style="font-size: 10px;">交叉编译</a> <a href="/tags/人工智能/" style="font-size: 10px;">人工智能</a> <a href="/tags/代理/" style="font-size: 10px;">代理</a> <a href="/tags/工作要求/" style="font-size: 10px;">工作要求</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/服务端/" style="font-size: 10px;">服务端</a> <a href="/tags/框架/" style="font-size: 10px;">框架</a> <a href="/tags/网站/" style="font-size: 10px;">网站</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/自动驾驶/" style="font-size: 13.33px;">自动驾驶</a> <a href="/tags/运维/" style="font-size: 20px;">运维</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+  
+  <div id="toTop" class="fa fa-chevron-up"></div>
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2000 - 2019 Kublaikhan<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+    </div>
+  </div>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <div class="count-span">
+    <span id="busuanzi_container_site_pv">
+      本站总访问量<span id="busuanzi_value_site_pv"></span>|
+    </span>
+    <span id="busuanzi_container_site_uv">
+      本站访客数<span id="busuanzi_value_site_uv"><span>
+    </span>
+  </div>
+</footer>
+
+    
+
+
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

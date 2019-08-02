@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>用hexo+github pages搭建Blog | Kublaikhangeek&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="用hexo+github pages搭建Blog
+
+本文主要介绍如何在Windows平台上利用hexo搭建静态blog网站，并使用github进行托管，改天在ubuntu下搭建一下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用hexo+github pages搭建Blog">
+<meta property="og:url" content="https://github.com/2015/11/13/用hexo+github pages搭建Blog/index.html">
+<meta property="og:site_name" content="Kublaikhangeek's Blog">
+<meta property="og:description" content="用hexo+github pages搭建Blog
+
+本文主要介绍如何在Windows平台上利用hexo搭建静态blog网站，并使用github进行托管，改天在ubuntu下搭建一下。">
+<meta property="og:image" content="http://i12.tietuku.com/8c6dddaea6d6bd35.png">
+<meta property="og:updated_time" content="2019-07-25T12:27:13.533Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用hexo+github pages搭建Blog">
+<meta name="twitter:description" content="用hexo+github pages搭建Blog
+
+本文主要介绍如何在Windows平台上利用hexo搭建静态blog网站，并使用github进行托管，改天在ubuntu下搭建一下。">
+  
+  
+    <link rel="icon" href="favicon.png">
+  
+  
+ <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
+ <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+
+
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" type="text/css">
+  
+
+  
+
+  
+</head>
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-main" class="header-inner">
+    <div class="outer">
+      <a href="/" id="logo"><i class="logo" style="background-image: url(/css/images/logo.png)"></i><span class="site-title">Kublaikhangeek&#39;s Blog</span></a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/.">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      
+        <nav id="sub-nav">
+          <div class="profile" id="profile-nav">
+            <a id="profile-anchor" href="javascript:;"><img class="avatar" src="/css/images/avatar.png"><i class="fa fa-caret-down"></i></a>
+          </div>
+        </nav>
+      
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"> </button><input type="hidden" name="sitesearch" value="https://github.com"></form>
+      </div>
+    </div>
+  </div>
+  <div id="main-nav-mobile" class="header-sub header-inner">
+    <table class="menu outer">
+      <tr>
+        
+          <td><a class="main-nav-link" href="/.">Home</a></td>
+        
+          <td><a class="main-nav-link" href="/archives">Archives</a></td>
+        
+          <td><a class="main-nav-link" href="/categories">Categories</a></td>
+        
+          <td><a class="main-nav-link" href="/tags">Tags</a></td>
+        
+          <td><a class="main-nav-link" href="/about">About</a></td>
+        
+        <td>
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="https://github.com"></form>
+        </td>
+      </tr>
+    </table>
+  </div>
+</header>
+
+    <div class="outer">
+      
+        <aside id="profile">
+  <div class="inner profile-inner">
+    <div class="base-info profile-block">
+      <img id="avatar" src="/css/images/avatar.png">
+      <h2 id="name">Kublaikhan</h2>
+      <h3 id="title">C++ Developer</h3>
+      <span id="location"><i class="fa fa-map-marker"></i>Beijing, China</span>
+      <a id="follow" href="https://github.com/KublaikhanGeek/">关注我</a>
+    </div>
+    <div class="article-info profile-block">
+      <div class="article-info-block">
+        22
+        <span>文章</span>
+      </div>
+      <div class="article-info-block">
+        30
+        <span>标签</span>
+      </div>
+    </div>
+    
+    <div class="contact-info profile-block">
+      <table class="contact-list">
+        <tr>
+          
+          <td><a href="https://github.com/KublaikhanGeek" target="_blank" title="github"><i class="fa fa-github"></i></a></td>
+          
+          <td><a href="http://weibo.com/u/1706057842" target="_blank" title="weibo"><i class="fa fa-weibo"></i></a></td>
+          
+          <td><a href="http://www.zhihu.com/people/yuan-shun-bao" target="_blank" title="知乎"><i class="fa fa-知乎"></i></a></td>
+          
+          <td><a href="http://www.douban.com/people/31600902/" target="_blank" title="豆瓣"><i class="fa fa-豆瓣"></i></a></td>
+          
+          <td><a href="https://twitter.com/KublaikhanAndy" target="_blank" title="twitter"><i class="fa fa-twitter"></i></a></td>
+          
+          <td><a href="https://www.facebook.com/yuanshunbao2008" target="_blank" title="facebook"><i class="fa fa-facebook"></i></a></td>
+          
+          <td><a href="/atom.xml" target="_blank" title="rss"><i class="fa fa-rss"></i></a></td>
+          
+        </tr>
+      </table>
+    </div>
+    
+    
+  </div>
+</aside>
+
+      
+      <section id="main"><article id="build-用hexo+github pages搭建Blog" class="article article-type-build" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      用hexo+github pages搭建Blog
+    </h1>
+  
+
+        <div class="article-meta">
+          
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2015/11/13/用hexo+github pages搭建Blog/">
+      <time datetime="2015-11-14T02:26:26.000Z" itemprop="datePublished">2015-11-13</time>
+    </a>
+  </div>
+
+
+          
+  <div class="article-category">
+  	<i class="fa fa-folder"></i>
+    <a class="article-category-link" href="/categories/运维/">运维</a>
+  </div>
+
+        </div>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+                
+        <h3><span id="用hexogithub-pages搭建blog">用hexo+github pages搭建Blog</span></h3><hr>
+<blockquote>
+<p>本文主要介绍如何在Windows平台上利用hexo搭建静态blog网站，并使用github进行托管，改天在ubuntu下搭建一下。</p>
+</blockquote>
+<a id="more"></a>
+<p>&gt;<br>花了两天的时间，折腾搭建自己的<strong>Blog</strong>，首先就花了好长时间来选择使用什么工具搭建，发现现在好多人使用github来托管自己的静态网页博客，另外自己也在探索github中，也选择使用github来托管自己的网站。接下来需要选择一个博客框架，主要比较了jekll、Octopress和hexo这三个目前使用较多的，最终选择了hexo，主要基于以下几点：</p>
+<ul>
+<li>轻巧快速，相较于其他两个，更加轻量级，而且速度更快</li>
+<li>配置使用更加简单</li>
+<li>hexo也可以兼容Octopress很多插件</li>
+<li>hexo对中文的支持更加好 </li>
+</ul>
+<p>好了接下来就开始搭建我们自己的博客吧！</p>
+<h4><span id="搭建本地hexo博客">搭建本地hexo博客</span></h4><h5><span id="1-安装nodejs">1. 安装Node.js</span></h5><p>到nodejs官网（<a href="https://nodejs.org/en/" target="_blank" rel="external">https://nodejs.org/en/</a>）下载nodejs程序安装即可</p>
+<h5><span id="2-安装hexo">2. 安装hexo</span></h5><p>在Git bash命令行下执行以下命令：</p>
+<pre><code>npm <span class="operator"><span class="keyword">install</span> -<span class="keyword">g</span> hexo</span>
+</code></pre><h5><span id="3-初始化">3. 初始化</span></h5><p>创建hexo静态网站目录（任意位置，如F:\myblog)，进入到该目录下鼠标右键git bash执行以下命令，hexo就会在目标文件夹生成建立blog所需要的所有文件</p>
+<pre><code><span class="title">hexo</span> init
+</code></pre><h5><span id="4安装依赖包">4.安装依赖包</span></h5><pre><code>npm <span class="keyword">install</span>
+</code></pre><h5><span id="5查看本地搭建的博客">5.查看本地搭建的博客</span></h5><p>经过以上四步我们就在本地搭建好了本地的博客，再执行以下两个命令我们就可以在浏览器中输入localhost:4000查看我们的博客了</p>
+<pre><code>hexo generate <span class="preprocessor">#生成静态页面至public目录</span>
+hexo server <span class="preprocessor">#开启预览访问端口（默认端口4000，<span class="string">'ctrl + c'</span>关闭server）</span>
+</code></pre><p>经过以上五个步骤，以及简单的几个命令我们就在本地搭建好了一个博客了，接下在我们将我们本地的blog托管到github，就可以畅快的开始享受写博客的快乐了</p>
+<h4><span id="本地博客托管到github">本地博客托管到github</span></h4><p>首先你先要有一个github的账号，这里就不再赘述了。</p>
+<h5><span id="1-创建github-pages仓库">1. 创建GitHub Pages仓库</span></h5><p>首先简单的介绍一下GitHub Pages，GitHub Pages 分为两种，一种是用你的GitHub用户名建立的username.github.io这样的用户&amp;组织站点，另一种是依附项目的Pages。两种都差不多，第二种还要复杂一点。</p>
+<p>想建立个人博客用第一种就可以了，形如username.github.io这样的可访问的站点，每个用户名下面只能建立一个。</p>
+<p>点击<strong>new repository</strong>按钮创建新的仓库，Repository name填写Rusername.github.io样式的名字，比如我的就是KublaikhanGeek.github.io</p>
+<p>点击<strong>Create repository</strong>按钮，创建仓库完成</p>
+<h5><span id="2本地博客上传github远程仓库">2.本地博客上传github远程仓库</span></h5><p>修改站点配置文件_config.yml</p>
+<pre><code><span class="attribute">deploy</span>:
+  <span class="attribute">type</span>: git
+  <span class="attribute">repository</span>: <span class="attribute">https</span>:<span class="comment">//github.com/KublaikhanGeek/KublaikhanGeek.github.io</span>
+  <span class="attribute">branch</span>: master
+</code></pre><p>执行下列命令上传</p>
+<pre><code><span class="title">hexo</span> generate <span class="comment">#生成静态页面至public目录</span>
+hexo deploy <span class="comment">#将.deploy目录部署到GitHub</span>
+</code></pre><p>会出现ERROR Deployer not found:git错误，需要执行以下命令</p>
+<pre><code>npm <span class="operator"><span class="keyword">install</span> hexo-deployer-git <span class="comment">--save</span></span>
+</code></pre><p>在执行一遍上面的两个命令就可以了，这时候你就看到你本地的博客上传到仓库里了，你可以通过username.github.io访问你的博客了。</p>
+<hr>
+<h4><span id="发表文章">发表文章</span></h4><p>辛辛苦苦折腾了这么久，享受写作的时候终于到了。开心死了呢~~~<br>在博客目录下进入git bash，输入以下命令：</p>
+<pre><code>hexo <span class="keyword">new</span> <span class="string">"文章题目"</span>
+</code></pre><p>就会在source_posts文件夹下生成一个“文章题目.md”的文件，编辑该文件后执行</p>
+<pre><code>hexo generate <span class="preprocessor">#生成静态页面至public目录</span>
+hexo server <span class="preprocessor">#开启预览访问端口（默认端口4000，<span class="string">'ctrl + c'</span>关闭server）</span>
+</code></pre><p>就可以上传到仓库，文章就发表了，是不是很简单</p>
+<p>注：代码高亮用的是highlight.js。下面的连接可以查看highlight.js支持的语言：</p>
+<p><a href="http://highlightjs.org/static/test.html" target="_blank" rel="external">http://highlightjs.org/static/test.html
+</a></p>
+<hr>
+<h4><span id="更换主题">更换主题</span></h4><p>如果你感觉hexo默认的主题不够漂亮，你可以到hexo官网上挑选你喜欢的主题，然后git clone到themes目录下，再然后修改站点配置文件_config.yml的theme属性就可以了，在push到github就发布了<br><img src="http://i12.tietuku.com/8c6dddaea6d6bd35.png" alt></p>
+<h4><span id="多pc同步博客">多PC同步博客</span></h4><pre><code>git <span class="keyword">clone</span> <span class="title">https</span>://github.com/KublaikhanGeek/MyBlog.git 
+</code></pre><p>通过以上命令下载备份的博客,然后进入的MyBlog目录执行一下命令:</p>
+<pre><code># 安装hexo
+npm <span class="operator"><span class="keyword">install</span> -<span class="keyword">g</span> hexo
+# 生成博客
+hexo <span class="keyword">g</span>
+# 在本地查看日志
+hexo s
+# 发布到github
+hexo <span class="keyword">d</span>
+
+# 或是使用阿里的npm源
+npm <span class="keyword">install</span> -<span class="keyword">g</span> cnpm <span class="comment">--registry=https://registry.npm.taobao.org</span>
+cnpm <span class="keyword">install</span> -<span class="keyword">g</span> hexo
+hexo <span class="keyword">g</span>
+hexo s
+hexo <span class="keyword">d</span></span>
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/2015/11/13/用hexo+github pages搭建Blog/" data-id="cjytjo6nj000h6ijxskk1pbcr" class="article-share-link">分享到</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网站/">网站</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/运维/">运维</a></li></ul>
+
+      <span id="busuanzi_container_page_pv">
+      |阅读量:<span id="busuanzi_value_page_pv"></span>次
+      </span>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/11/14/交叉编译nginx/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          交叉编译nginx
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+
+  
+</article>
+
+
+</section>
+      
+        <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul id="recent-post" class="">
+        
+          <li>
+            
+            <div class="item-thumbnail">
+              <a href="/2019/08/01/C-knowledge/" class="thumbnail">
+  
+    <span class="thumbnail-image thumbnail-none"></span>
+  
+</a>
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/programming-language/">programming language</a></p>
+              <p class="item-title"><a href="/2019/08/01/C-knowledge/" class="title">C++ knowledge</a></p>
+              <p class="item-date"><time datetime="2019-08-02T03:08:37.000Z" itemprop="datePublished">2019-08-01</time></p>
+            </div>
+          </li>
+        
+          <li>
+            
+            <div class="item-thumbnail">
+              <a href="/2019/08/01/cjscon-library/" class="thumbnail">
+  
+    <span class="thumbnail-image thumbnail-none"></span>
+  
+</a>
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/library/">library</a></p>
+              <p class="item-title"><a href="/2019/08/01/cjscon-library/" class="title">cjscon library</a></p>
+              <p class="item-date"><time datetime="2019-08-02T02:44:44.000Z" itemprop="datePublished">2019-08-01</time></p>
+            </div>
+          </li>
+        
+          <li>
+            
+            <div class="item-thumbnail">
+              <a href="/2019/07/25/vim使用/" class="thumbnail">
+  
+    <span class="thumbnail-image thumbnail-none"></span>
+  
+</a>
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/linux/">linux</a></p>
+              <p class="item-title"><a href="/2019/07/25/vim使用/" class="title">vim使用</a></p>
+              <p class="item-date"><time datetime="2019-07-26T06:16:02.000Z" itemprop="datePublished">2019-07-25</time></p>
+            </div>
+          </li>
+        
+          <li>
+            
+            <div class="item-thumbnail">
+              <a href="/2019/07/25/hello-world/" class="thumbnail">
+  
+    <span class="thumbnail-image thumbnail-none"></span>
+  
+</a>
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category"></p>
+              <p class="item-title"><a href="/2019/07/25/hello-world/" class="title">Hello World</a></p>
+              <p class="item-date"><time datetime="2019-07-25T12:27:13.533Z" itemprop="datePublished">2019-07-25</time></p>
+            </div>
+          </li>
+        
+          <li>
+            
+            <div class="item-thumbnail">
+              <a href="/2019/04/19/Apollo-CANBUS模块解析/" class="thumbnail">
+  
+    <span style="background-image:url(/2019/04/19/Apollo-CANBUS模块解析/1555597041738.png
+)" alt="Apollo CANBUS模块解析" class="thumbnail-image"></span>
+  
+</a>
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/AI/">AI</a></p>
+              <p class="item-title"><a href="/2019/04/19/Apollo-CANBUS模块解析/" class="title">Apollo CANBUS模块解析</a></p>
+              <p class="item-date"><time datetime="2019-04-19T23:12:47.000Z" itemprop="datePublished">2019-04-19</time></p>
+            </div>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AI/">AI</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android开发/">Android开发</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/OpenWRT/">OpenWRT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/TCP-IP/">TCP/IP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javaEE/">javaEE</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javaee/">javaee</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/library/">library</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nginx/">nginx</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/programming-language/">programming language</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/server开发/">server开发</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/运维/">运维</a><span class="category-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ADAS/">ADAS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/">AI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Studio/">Android Studio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android开发/">Android开发</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apollo/">Apollo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CAN/">CAN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenWRT/">OpenWRT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP-IP/">TCP/IP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bonding/">bonding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/curl/">curl</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javaEE/">javaEE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/library/">library</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/openssl/">openssl</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server开发/">server开发</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/交叉编译/">交叉编译</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/人工智能/">人工智能</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代理/">代理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作要求/">工作要求</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/服务端/">服务端</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/框架/">框架</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自动驾驶/">自动驾驶</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/运维/">运维</a><span class="tag-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ADAS/" style="font-size: 10px;">ADAS</a> <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/Android-Studio/" style="font-size: 10px;">Android Studio</a> <a href="/tags/Android开发/" style="font-size: 13.33px;">Android开发</a> <a href="/tags/Apollo/" style="font-size: 10px;">Apollo</a> <a href="/tags/CAN/" style="font-size: 10px;">CAN</a> <a href="/tags/OpenWRT/" style="font-size: 10px;">OpenWRT</a> <a href="/tags/TCP-IP/" style="font-size: 10px;">TCP/IP</a> <a href="/tags/bonding/" style="font-size: 10px;">bonding</a> <a href="/tags/c/" style="font-size: 10px;">c++</a> <a href="/tags/curl/" style="font-size: 10px;">curl</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/javaEE/" style="font-size: 10px;">javaEE</a> <a href="/tags/library/" style="font-size: 10px;">library</a> <a href="/tags/nginx/" style="font-size: 13.33px;">nginx</a> <a href="/tags/openssl/" style="font-size: 10px;">openssl</a> <a href="/tags/server开发/" style="font-size: 16.67px;">server开发</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/交叉编译/" style="font-size: 10px;">交叉编译</a> <a href="/tags/人工智能/" style="font-size: 10px;">人工智能</a> <a href="/tags/代理/" style="font-size: 10px;">代理</a> <a href="/tags/工作要求/" style="font-size: 10px;">工作要求</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/服务端/" style="font-size: 10px;">服务端</a> <a href="/tags/框架/" style="font-size: 10px;">框架</a> <a href="/tags/网站/" style="font-size: 10px;">网站</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/自动驾驶/" style="font-size: 13.33px;">自动驾驶</a> <a href="/tags/运维/" style="font-size: 20px;">运维</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+  
+  <div id="toTop" class="fa fa-chevron-up"></div>
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2000 - 2019 Kublaikhan<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+    </div>
+  </div>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <div class="count-span">
+    <span id="busuanzi_container_site_pv">
+      本站总访问量<span id="busuanzi_value_site_pv"></span>|
+    </span>
+    <span id="busuanzi_container_site_uv">
+      本站访客数<span id="busuanzi_value_site_uv"><span>
+    </span>
+  </div>
+</footer>
+
+    
+
+
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>
